@@ -32,8 +32,10 @@ sht = adafruit_sht31d.SHT31D(board.I2C())
 # Diccionario para agregar datos
 sensorData = {}
 
+# Sensor DHT11
 sensorData["DHT11"] = []
-sensorData["SHT31"] = []
+# Sensor SHT31-D
+sensorData["SHT31D"] = []
 
 def GuardarJSON():
         # -------------- Escritura de Json --------------
@@ -89,7 +91,7 @@ def SensorSTH31D():
             if humidity is None or temperature is None:
                 raise RuntimeError
 
-            sensorData["DHT11"].append({
+            sensorData["SHT31D"].append({
                 'temp' : str(temperature),
                 'humedad' : str(humidity),
                 'time' : deltaTime
