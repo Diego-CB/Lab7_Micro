@@ -40,8 +40,8 @@ for i in range(0, 20):
             raise RuntimeError
 
         sensorData["DHT11"].append({
-            'temp' : temperature,
-            'humedad' : humidity,
+            'temp' : str(temperature),
+            'humedad' : str(humidity),
             'time' : deltaTime
         })
 
