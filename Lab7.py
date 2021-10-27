@@ -9,45 +9,40 @@
 # Autores:
 # - Diego Cordova, 20212
 # - Alejandro Gomez, 20347
-# - Paola de Leon, 
+# - Paola de Leon, 20361
 # ------------------------------------------------------
 
 # librerias importadas
+from os import error
 import time
 import json
-# sensor Diego Cordova
-import adafruit_dht
-# sensor Alejandro Gomez
-import adafruit_sht31d
+import adafruit_dht #sensor Diego Cordova
+import adafruit_sht31d #sensor Alejandro Gomez
 import board
 import datetime as dt
 
-# Objetos de sensor Diego Cordova
-dht = adafruit_dht.DHT11(board.D4)
-
-# Objeto de sensor Alejandro Gomez
-
-sht = adafruit_sht31d.SHT31D(board.I2C())
-
 # Diccionario para agregar datos
 sensorData = {}
+sensorData["DHT11"] = [] #Sensor DHT11 
+sensorData["SHT31D"] = [] #Sensor SHT31-D
 
-# Sensor DHT11
-sensorData["DHT11"] = []
-# Sensor SHT31-D
-sensorData["SHT31D"] = []
-
-def GuardarJSON():
-        # -------------- Escritura de Json --------------
-
+def GuardarJSON(type):
     newJson = json.dumps(sensorData, indent=4)
 
     with open('newJson.json', 'w') as outfile:
         outfile.write(newJson)
+    
+    print('\nArchivo Json escrito con exito!!\n')
 
 
 def SensorDHT11():
     # ------------------------ Lectura de sensores ------------------------
+
+    try:
+        dht = adafruit_dht.DHT11(board.D4)
+
+    except Exception:
+        pass
 
     for i in range(0, 20):
 
@@ -80,6 +75,12 @@ def SensorDHT11():
 
 def SensorSTH31D():
     # ------------------------ Lectura de sensores ------------------------
+
+    try:
+        sht = adafruit_sht31d.SHT31D(board.I2C())
+        
+    except Exception:
+        pass
 
     for i in range(0, 20):
                 # --------------- Sensor de temperatura/humedad STH31 ---------------
