@@ -19,12 +19,14 @@ import json
 import adafruit_dht #sensor Diego Cordova
 import adafruit_sht31d #sensor Alejandro Gomez
 import board
+import bmpsensor
 import datetime as dt
 
 # Diccionario para agregar datos
 sensorData = {}
 sensorData["DHT11"] = [] #Sensor DHT11 
 sensorData["SHT31D"] = [] #Sensor SHT31-D
+sensorData["BMP108"] = [] #Sensor BMP180
 
 def GuardarJSON():
     newJson = json.dumps(sensorData, indent=4)
@@ -106,6 +108,29 @@ def SensorSTH31D():
         time.sleep(2)
 
 
+def SensorB180():
+    # ------------------------ Lectura de sensores ------------------------
+
+        try:
+                for i in range(0, 20):
+                        # --------------- Sensor de presion barometrica BMP180 ---------------
+                        temp, pressure, altitude = bmpsensor.readBmp180()
+                        deltaTime = dt.datetime.now().strftime('%H:%M:%S')
+
+                        sensorData["BMP108"].append({
+                                'temp' : str(temp),
+                                'pressure' : str(pressure),
+                                'altitude' : str(altitude),
+                                'time' : deltaTime
+                        })
+                        print("Temp: %s C \t Pressure: %s Pa \t Altitude: %s m \t Time: %s s" %(temp, pressure, altitude, deltaTime))
+
+                        time.sleep(1)
+                        GuardarJSON()
+
+        except RuntimeError as e:
+                pass
+
 
 def Menu1():
     # Variable de menu
@@ -117,7 +142,8 @@ def Menu1():
         print("\nQue desea hacer? ")
         print("1) Usar sensor DTH11")
         print("2) Usar sensor STH31D")
-        print("3) Salir")
+        print("3) Usar sensor BMP180")
+        print("4) Salir")
 
         opcion = input("\nIngrese su opción: ")
         # Se verifica si se ingresa un numero o no
@@ -138,8 +164,14 @@ def Menu1():
             SensorSTH31D()
             
 
-        # Opcion de salida
+        # Opcion para sensor STH31D
         if (opcion == 3):
+            print("\n Sensor BMP180")
+            SensorSTH31D()
+
+
+        # Opcion de salida
+        if (opcion == 4):
             print("Gracias por usar este programa")
             break
         
