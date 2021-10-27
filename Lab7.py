@@ -85,7 +85,7 @@ def SensorSTH31D():
                 # --------------- Sensor de temperatura/humedad STH31 ---------------
         try:
             temperature = sht.temperature
-            humidity = sht.humidity
+            humidity = sht.relative_humidity
             deltaTime = dt.datetime.now().strftime('%H:%M:%S')
 
             if humidity is None or temperature is None:
