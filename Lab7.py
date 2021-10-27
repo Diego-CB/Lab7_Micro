@@ -164,10 +164,10 @@ def Menu1():
             SensorSTH31D()
             
 
-        # Opcion para sensor STH31D
+        # Opcion para sensor BMP180
         if (opcion == 3):
             print("\n Sensor BMP180")
-            SensorSTH31D()
+            SensorB180()
 
 
         # Opcion de salida
