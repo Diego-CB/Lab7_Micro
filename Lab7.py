@@ -42,7 +42,7 @@ def GuardarJSON():
 
     newJson = json.dumps(sensorData, indent=4)
 
-    with open('newJson', 'w') as outfile:
+    with open('newJson.json', 'w') as outfile:
         outfile.write(newJson)
 
 
