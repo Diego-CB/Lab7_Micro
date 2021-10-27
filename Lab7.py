@@ -26,7 +26,7 @@ sensorData = {}
 sensorData["DHT11"] = [] #Sensor DHT11 
 sensorData["SHT31D"] = [] #Sensor SHT31-D
 
-def GuardarJSON(type):
+def GuardarJSON():
     newJson = json.dumps(sensorData, indent=4)
 
     with open('newJson.json', 'w') as outfile:
@@ -69,8 +69,6 @@ def SensorDHT11():
             pass
 
         time.sleep(1)
-        GuardarJSON()
-
 
 
 def SensorSTH31D():
@@ -106,7 +104,6 @@ def SensorSTH31D():
             pass
 
         time.sleep(2)
-        GuardarJSON()
 
 
 
@@ -115,7 +112,7 @@ def Menu1():
     salir = False
     print("Bienvenido al Laboratorio No.7")
     # Ciclo del menu
-    while salir == False:
+    while True:
         # Se muestran las opciones del menú
         print("\nQue desea hacer? ")
         print("1) Usar sensor DTH11")
@@ -144,7 +141,9 @@ def Menu1():
         # Opcion de salida
         if (opcion == 3):
             print("Gracias por usar este programa")
-            salir = True
+            break
+        
+        GuardarJSON()
 
 
 Menu1()
